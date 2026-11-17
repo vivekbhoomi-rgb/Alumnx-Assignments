@@ -20,6 +20,7 @@ llm = anthropic.AsyncAnthropic()
 app = FastAPI(title="Assignment Chatbot API")
 app.add_middleware(CORSMiddleware, allow_origins=[o.strip() for o in os.getenv(
                        "ALLOWED_ORIGINS", "http://localhost:5173,http://localhost:8001").split(",")],
+                   allow_origin_regex=os.getenv("ALLOWED_ORIGIN_REGEX") or None,
                    allow_methods=["*"], allow_headers=["*"])
 
 SYSTEM = ("You answer questions about an assignment-submission dashboard using ONLY the JSON data "
