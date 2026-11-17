@@ -18,7 +18,8 @@ MODEL = os.getenv("CHAT_MODEL", "claude-sonnet-5-5")
 llm = anthropic.AsyncAnthropic()
 
 app = FastAPI(title="Assignment Chatbot API")
-app.add_middleware(CORSMiddleware, allow_origins=["http://localhost:5173"],
+app.add_middleware(CORSMiddleware, allow_origins=[o.strip() for o in os.getenv(
+                       "ALLOWED_ORIGINS", "http://localhost:5173,http://localhost:8001").split(",")],
                    allow_methods=["*"], allow_headers=["*"])
 
 SYSTEM = ("You answer questions about an assignment-submission dashboard using ONLY the JSON data "

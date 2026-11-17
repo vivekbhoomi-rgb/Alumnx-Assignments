@@ -15,7 +15,8 @@ export default function App() {
     setInput("");
     setLoading(true);
     try {
-      const res = await fetch("/api/chat", {
+      const base = (import.meta.env.VITE_API_URL || "").replace(/\/$/, "");
+      const res = await fetch(`${base}/api/chat`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ message }),
